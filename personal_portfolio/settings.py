@@ -23,10 +23,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = "django-insecure-x(b^d1_90*3v&6sn&hd*lm07r3-1v=pmw^jza!$4n2m5#wgt*b"
+SECRET_KEY = "django-insecure-x(b^d1_90*3v&6sn&hd*lm07r3-1v=pmw^jza!$4n2m5#wgt*b"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -96,9 +96,9 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
     },
-    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",},
-    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",},
-    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",},
+    {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator", },
+    {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator", },
+    {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator", },
 ]
 
 
@@ -127,7 +127,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-STATICFILES_DIRS = [BASE_DIR / 'personal_portfolio/static', ]
+# STATICFILES_DIRS = [BASE_DIR / 'personal_portfolio/static', ]
+STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
 
 MEDIA_ROOT = BASE_DIR / "uploads/"
 MEDIA_URL = "media/"

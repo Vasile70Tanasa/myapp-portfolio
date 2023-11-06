@@ -1,5 +1,81 @@
-{% extends "base.html" %}
+{% load static %}
 
-{% block page_content %}
-    <h1>Hello, World!</h1>
-{% endblock page_content %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MyPortfolio</title>
+    <link rel="stylesheet" href="static/CSS/general.css" />
+    <link rel="stylesheet" href="static/CSS/rest.css" />
+  </head>
+
+  <body>
+    <header class="header">
+      <div class="photo-container">
+        <img class="photo" src="static/my-photo.jpg" />
+      </div>
+
+      <div>
+        <button
+          class="cv-button"
+          onclick="window.open('static/CV-VT.pdf', '_blank')"
+        >
+          My CV
+        </button>
+      </div>
+
+      <div class="motivation">
+        <button
+          class="motivation-button"
+          onclick="window.open('static/MotivationLetter.pdf', '_blank')"
+        >
+          Motivation
+        </button>
+      </div>
+
+      <div class="projects">
+        <button
+          class="projects-button"
+          onclick="window.open('projects', '_blank')"
+        >
+          Projects
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="photo-place">
+        <img
+          style="width: 100%; margin-top: 100px; margin-left: 50px"
+          src="static/best-photo.jpg"
+        />
+      </div>
+
+      <div class="about-me">
+        <p
+          style="font-family: Arial, sans-serif; font-weight: 600; color: white"
+        >
+          I'm Vasile Tanasa.
+        </p>
+        <p style="color: rgb(216, 212, 212)">
+          I'm on an exciting journey of self-discovery
+        </p>
+        <p style="color: rgb(216, 212, 212)">
+          in the world of web development.
+        </p>
+        <p style="font-size: 25px; color: rgb(216, 212, 212)">
+          Every line of code, every project, is a new opportunity for me to
+          learn and grow.
+        </p>
+      </div>
+
+      <div class="about-site">
+        <div class="about-site-text">
+          <p>🚀 Built with Django, Python,</p>
+          <p>HTML, CSS, SQL, and JavaScript</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

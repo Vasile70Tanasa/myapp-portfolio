@@ -1,27 +1,41 @@
-{% extends "base.html" %}
-
-{% block page_content %}
+{% extends "base.html" %} {% block page_content %}
 <h1>{{ project.title }}</h1>
+
+<style>
+  button {
+    background-color: rgb(187, 39, 39);
+    color: white;
+    border: none;
+    height: 36px;
+    width: 110px;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
 <div class="row">
-    <div class="col-md-4">
-        {% if project.image %}
-            <img src="{{ project.image.url }}" width="50%">
-        {% endif %}
-    </div>
+  <div class="col-md-4">
+    {% if project.image %}
+    <img src="{{ project.image.url }}" width="50%" />
+    {% endif %}
+  </div>
 
-    <div class="col-md-8">
-        {% if project.link %}
-            <a href="{{ project.link }}" target="_blank">view project</a>
-            <!-- <button onclick="document.location='{{ project.link }}'">view project</button>  -->
-        {% endif %}
-    </div>
+  <div class="col-md-8">
+    {% if project.link %}
+    <!--            <a href="{{ project.link }}" target="_blank">view project</a>-->
+    <button onclick="document.location='{{ project.link }}'">
+      view project
+    </button>
+    {% endif %}
+  </div>
 
-    <div class="col-md-4">
-        <h5>About the project:</h5>
-        <p>{{ project.description }}</p>
-        <br>
-        <h5>Technology used:</h5>
-        <p>{{ project.technology }}</p>
-    </div>
+  <div class="col-md-4">
+    <h4>About the project:</h4>
+    <p>{{ project.description }}</p>
+    <br />
+    <h5>Technology used:</h5>
+    <p>{{ project.technology }}</p>
+  </div>
 </div>
 {% endblock page_content %}

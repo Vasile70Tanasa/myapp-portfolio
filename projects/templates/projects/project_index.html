@@ -1,29 +1,35 @@
-{% extends "base.html" %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects</title>
+    <link rel="stylesheet" href="/static/styles/projects.css" />
+  </head>
+  <body>
+    <h1 class="title">Projects</h1>
 
-{% block page_content %}
-<h1>Projects</h1>
-<div class="row">
-{% for project in projects %}
-    <div class="col-md-4">
-        <div class="card mb-2">
-            {% if project.image %}
-                <img class="card-img-top" src="{{ project.image.url }}">
-            {% endif %}
+    <section class="project-grid">
+      {% for project in projects %}
 
-            <!-- {% if project.link %}
-                <a href="/projects">link</a>
-            {% endif %} -->
-
-            <div class="card-body">
-                <h5 class="card-title">{{ project.title }}</h5>
-                <p class="card-text">{{ project.description }}</p>
-                <a href="{% url 'project_detail' project.pk %}"
-                   class="btn btn-primary">
-                    Read More
-                </a>
-            </div>
+      <div class="project-preview">
+        <div class="image-row">
+          <img class="project-image" src="{{ project.image.url }}" alt="" />
         </div>
-    </div>
-    {% endfor %}
-</div>
-{% endblock %}
+
+        <div class="project-link">
+          <button onclick="window.open('{{ project.link }}', '_blank')">
+            Go to project
+          </button>
+        </div>
+
+        <div class="project-info-grid">
+          <p class="project-title">{{ project.title }}</p>
+          <p class="project-description">{{ project.description }}</p>
+        </div>
+      </div>
+
+      {% endfor %}
+    </section>
+  </body>
+</html>
