@@ -7,7 +7,11 @@
     <link rel="stylesheet" href="/static/styles/projects.css" />
   </head>
   <body>
-    <h1 class="title">Projects</h1>
+    <div class="title" id="fadeInElement">
+      <h1>Projects</h1>
+    </div>
+
+    <script src="/static/script.js"></script>
 
     <section class="project-grid">
       {% for project in projects %}
