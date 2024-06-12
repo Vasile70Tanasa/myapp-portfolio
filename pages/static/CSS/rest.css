@@ -1,118 +1,20 @@
-.header {
-  height: 70px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 100;
-  border-bottom-width: 1px;
-  border-bottom-style: solid;
-  border-bottom-color: rgb(228, 225, 225);
-  align-items: center;
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
-.photo {
-  width: 100%;
-  /* margin: auto; */
-  border-radius: 25px;
+a {
+    color: #61dafb;
+    text-decoration: none;
 }
 
-.photo-container{
-  width: 50px;
-  margin-left: 100px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  
+a:hover {
+    text-decoration: underline;
 }
 
-.cv-button {
-  background-color: rgb(201, 0, 0);
-  color: white;
-  border: none;
-  height: 36px;
-  width: 80px;
-  border-radius: 2px;
-  cursor: pointer;
-  margin-right: 8px;
-  transition: opacity 0.15s;
-}
-
-.cv-button:hover {
-  opacity: 0.5;
-}
-.motivation-button {
-  background-color: white;
-  color: blue;
-  border-color: blue;
-  border-style: solid;
-  border-width: 1px;
-  height: 36px;
-  width: 80px;
-  border-radius: 2px;
-  cursor: pointer;
-  margin-right: 8px;
-  transition: background-color 1s, color 1s;
-}
-
-.motivation-button:hover {
-  background-color: blue;
-  color: white;
-}
-
-.projects {
-  margin-right: 100px;
-}
-
-.projects-button {
-  background-color: blue;
-  color: white;
-  border: none;
-  height: 36px;
-  width: 70px;
-  border-radius: 18px;
-  font-weight: bold;
-  font-size: 15px;
-  cursor: pointer;
-  transition: box-shadow 0.2s;
-}
-
-.projects-button:hover {
-  box-shadow: 5px 5px 10px rgba(196, 188, 188, 0.5);
-}
-
-main {
-  margin-top: 70px;
-  height: 800px;
-  display: flex;
-  flex-direction: row;
-  justify-content: end;
-}
-
-.photo-place {
-  flex: 0.5;
-}
-
-.about-me {
-  padding: 100px;
-  font-size: 45px;
-  text-align: left;
-  flex: 2;
-} 
-
-.about-site {
-  flex: 0.5;
-}
-
-.about-site-text {
-  color: rgb(132, 83, 83);
-  margin-top: 400px;
-}
-
-p {
-  margin-bottom: 0;
-  margin-top: 0;
-}
+/* Add any other styles here */

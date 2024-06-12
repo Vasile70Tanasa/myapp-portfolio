@@ -2,57 +2,36 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MyPortfolio</title>
-    <link rel="stylesheet" href="static/CSS/general.css" />
-    <link rel="stylesheet" href="static/CSS/rest.css" />
-  </head>
-
-  <body>
+    <link rel="stylesheet" href="{% static 'CSS/general.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/rest.css' %}">
+    <link rel="stylesheet" href="{% static 'CSS/chatbot.css' %}">
+</head>
+<body>
     <header class="header">
-      <div class="photo-container">
-        <img class="photo" src="static/my-photo.jpg" />
-      </div>
+        <div class="photo-container">
+            <img class="photo" src="{% static 'my-photo.jpg' %}">
+        </div>
 
-      <div>
-        <button
-          class="cv-button"
-          onclick="window.open('static/CV-VT.pdf', '_blank')"
-        >
-          My CV
-        </button>
-      </div>
+        <div>
+            <button class="cv-button" onclick="window.open('{% static 'CV-VT.pdf' %}', '_blank')">My CV</button>
+        </div>
 
-      <div class="motivation">
-        <button
-          class="motivation-button"
-          onclick="window.open('static/Motivation.pdf', '_blank')"
-        >
-          Motivation
-        </button>
-      </div>
+        <div class="motivation">
+            <button class="motivation-button" onclick="window.open('{% static 'Motivation.pdf' %}', '_blank')">Motivation</button>
+        </div>
 
-      <div class="projects">
-        <button
-          class="projects-button"
-          onclick="window.open('projects', '_blank')"
-        >
-          Projects
-        </button>
-      </div>
+        <div class="projects">
+            <button class="projects-button" onclick="window.open('projects', '_blank')">Projects</button>
+        </div>
     </header>
 
     <main>
-      <div class="photo-place">
-        <img
-          style="width: 100%; margin-top: 100px; margin-left: 50px"
-          src="static/best-photo.jpg"
-        />
-      </div>
 
-      <div class="about-me">
+        <div class="about-me">
         <p
           style="font-family: Arial, sans-serif; font-weight: 600; color: white"
         >
@@ -69,12 +48,60 @@
         </p>
       </div>
 
-      <div class="about-site">
-        <div class="about-site-text">
-          <p>🚀 Built with Django, Python,</p>
-          <p>HTML, CSS, and JavaScript</p>
+        <div class="about-site">
+            <div class="about-site-text">
+                <p>🚀 Built with Django, Python,</p>
+                <p>HTML, CSS, and JavaScript</p>
+            </div>
         </div>
-      </div>
+
+        <!-- Chatbot Interface -->
+        <div id="chatbox" class="chatbox">
+            <div id="chat-messages" class="chat-messages"></div>
+            <input type="text" id="user-input" class="user-input" placeholder="Type a message...">
+        </div>
     </main>
-  </body>
+
+    <script>
+        document.getElementById('user-input').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                let userInput = e.target.value;
+                displayMessage(userInput, 'user');
+                fetch('/chatbot/', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: `message=${encodeURIComponent(userInput)}`,
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.error) {
+                        displayMessage(data.error, 'error');
+                    } else {
+                        data.forEach(message => {
+                            displayMessage(message.text, 'bot');
+                        });
+                    }
+                })
+                .catch(error => {
+                    displayMessage('An error occurred: ' + error.message, 'error');
+                });
+                e.target.value = '';
+            }
+        });
+
+        function displayMessage(message, sender) {
+            let chatMessages = document.getElementById('chat-messages');
+            let messageElem = document.createElement('div');
+            messageElem.className = `message ${sender}`;
+            messageElem.textContent = message;
+            chatMessages.appendChild(messageElem);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+    </script>
+</body>
 </html>
+
+
+
