@@ -1,0 +1,39 @@
+/* general.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #282c34;
+    color: #d8d4d4;
+    margin: 0;
+    padding: 0;
+}
+
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background-color: #333;
+}
+
+.photo-container img.photo {
+    border-radius: 50%;
+    width: 150px;
+    height: 150px;
+}
+
+.cv-button, .motivation-button, .projects-button {
+    padding: 10px 20px;
+    margin: 5px;
+    background-color: #444;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.cv-button:hover, .motivation-button:hover, .projects-button:hover {
+    background-color: #555;
+}
+
+
+
+

@@ -1,0 +1,68 @@
+body{
+  background-color: rgb(253, 247, 240);
+}
+
+.title{
+  font-style: Arial;
+  text-align: center;
+  color: rgba(53, 34, 34, 0.858);
+  font-size: 40px;
+  opacity: 0;
+  transition: opacity 2s ease;
+  }
+
+.fade-in {
+    opacity: 1;
+  }
+
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  column-gap: 20px;
+  row-gap: 50px;
+}
+
+.project-preview {
+  vertical-align: bottom;
+  border-width: 1px;
+}
+
+.project-image {
+
+}
+
+.project-info-grid {
+  display: grid;
+  /* grid-template-columns: 50px 1fr; */
+}
+
+.project-title {
+  margin-top: 8px;
+  font-size: 24px;
+  font-weight: 500;
+  line-height: 20px;
+  margin-bottom: 0;
+}
+
+.project-description{
+  font-size: 20px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.image-row {
+  height: 200px;
+  position: relative;
+}
+
+button{
+  background-color: rgb(71, 56, 56);
+  color: white;
+  font-size: 15px;
+  border: none;
+  height: 36px;
+  width: 100px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 8px;
+}

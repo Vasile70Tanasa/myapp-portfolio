@@ -56,50 +56,50 @@
         </div>
 
         <!-- Chatbot Interface -->
-        <div id="chatbox" class="chatbox">
-            <div id="chat-messages" class="chat-messages"></div>
-            <input type="text" id="user-input" class="user-input" placeholder="Type a message...">
-        </div>
+<!--        <div id="chatbox" class="chatbox">-->
+<!--            <div id="chat-messages" class="chat-messages"></div>-->
+<!--            <input type="text" id="user-input" class="user-input" placeholder="Type a message...">-->
+<!--        </div>-->
     </main>
 
-    <script>
-        document.getElementById('user-input').addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                let userInput = e.target.value;
-                displayMessage(userInput, 'user');
-                fetch('/chatbot/', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
-                    },
-                    body: `message=${encodeURIComponent(userInput)}`,
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.error) {
-                        displayMessage(data.error, 'error');
-                    } else {
-                        data.forEach(message => {
-                            displayMessage(message.text, 'bot');
-                        });
-                    }
-                })
-                .catch(error => {
-                    displayMessage('An error occurred: ' + error.message, 'error');
-                });
-                e.target.value = '';
-            }
-        });
+<!--    <script>-->
+<!--        document.getElementById('user-input').addEventListener('keypress', function (e) {-->
+<!--            if (e.key === 'Enter') {-->
+<!--                let userInput = e.target.value;-->
+<!--                displayMessage(userInput, 'user');-->
+<!--                fetch('/chatbot/', {-->
+<!--                    method: 'POST',-->
+<!--                    headers: {-->
+<!--                        'Content-Type': 'application/x-www-form-urlencoded',-->
+<!--                    },-->
+<!--                    body: `message=${encodeURIComponent(userInput)}`,-->
+<!--                })-->
+<!--                .then(response => response.json())-->
+<!--                .then(data => {-->
+<!--                    if (data.error) {-->
+<!--                        displayMessage(data.error, 'error');-->
+<!--                    } else {-->
+<!--                        data.forEach(message => {-->
+<!--                            displayMessage(message.text, 'bot');-->
+<!--                        });-->
+<!--                    }-->
+<!--                })-->
+<!--                .catch(error => {-->
+<!--                    displayMessage('An error occurred: ' + error.message, 'error');-->
+<!--                });-->
+<!--                e.target.value = '';-->
+<!--            }-->
+<!--        });-->
 
-        function displayMessage(message, sender) {
-            let chatMessages = document.getElementById('chat-messages');
-            let messageElem = document.createElement('div');
-            messageElem.className = `message ${sender}`;
-            messageElem.textContent = message;
-            chatMessages.appendChild(messageElem);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-    </script>
+<!--        function displayMessage(message, sender) {-->
+<!--            let chatMessages = document.getElementById('chat-messages');-->
+<!--            let messageElem = document.createElement('div');-->
+<!--            messageElem.className = `message ${sender}`;-->
+<!--            messageElem.textContent = message;-->
+<!--            chatMessages.appendChild(messageElem);-->
+<!--            chatMessages.scrollTop = chatMessages.scrollHeight;-->
+<!--        }-->
+<!--    </script>-->
 </body>
 </html>
 
