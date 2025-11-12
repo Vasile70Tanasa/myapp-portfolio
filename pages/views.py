@@ -170,9 +170,3 @@ GENERAL EXAMPLES:
         ]
         return random.choice(default_responses)
 
-def chatbot(request):
-    """
-    Render the chatbot interface.
-    """
-    return render(request, 'chatbot.html')
-

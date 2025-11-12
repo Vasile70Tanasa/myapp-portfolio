@@ -89,6 +89,15 @@
             }
         }
 
+        function displayMessage(message, sender) {
+            let chatMessages = document.getElementById('chat-messages');
+            let messageElem = document.createElement('div');
+            messageElem.className = `message ${sender}`;
+            messageElem.textContent = message;
+            chatMessages.appendChild(messageElem);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
         document.getElementById('user-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 let userInput = e.target.value;
@@ -132,15 +141,6 @@
                 e.target.value = '';
             }
         });
-
-        function displayMessage(message, sender) {
-            let chatMessages = document.getElementById('chat-messages');
-            let messageElem = document.createElement('div');
-            messageElem.className = `message ${sender}`;
-            messageElem.textContent = message;
-            chatMessages.appendChild(messageElem);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
     </script>
 </body>
 </html>
