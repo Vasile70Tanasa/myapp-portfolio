@@ -1,35 +1,46 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Projects</title>
-    <link rel="stylesheet" href="/static/styles/projects.css" />
+    <link rel="stylesheet" href="{% static 'styles/projects.css' %}" />
   </head>
   <body>
+    <nav class="back-nav">
+      <a href="{% url 'home' %}" class="back-button">← Back to Home</a>
+    </nav>
+    
     <div class="title" id="fadeInElement">
       <h1>Projects</h1>
     </div>
 
-    <script src="/static/script.js"></script>
+    <script src="{% static 'script.js' %}"></script>
 
     <section class="project-grid">
       {% for project in projects %}
 
       <div class="project-preview">
         <div class="image-row">
-          <img class="project-image" src="{{ project.image.url }}" alt="" />
-        </div>
-
-        <div class="project-link">
-          <button onclick="window.open('{{ project.link }}', '_blank')">
-            Go to project
-          </button>
+          {% if project.image %}
+          <img class="project-image" src="{{ project.image.url }}" alt="{{ project.title }}" />
+          {% else %}
+          <div class="project-image-placeholder"></div>
+          {% endif %}
         </div>
 
         <div class="project-info-grid">
           <p class="project-title">{{ project.title }}</p>
           <p class="project-description">{{ project.description }}</p>
+        </div>
+
+        <div class="project-link">
+          {% if project.link %}
+          <button onclick="window.open('{{ project.link }}', '_blank')">
+            Go to project
+          </button>
+          {% endif %}
         </div>
       </div>
 

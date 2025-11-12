@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>MyPortfolio</title>
     <link rel="stylesheet" href="{% static 'CSS/general.css' %}">
     <link rel="stylesheet" href="{% static 'CSS/rest.css' %}">
@@ -17,7 +17,7 @@
         </div>
 
         <div>
-            <button class="cv-button" onclick="window.open('{% static 'CV-VT.pdf' %}', '_blank')">My CV</button>
+            <button class="cv-button" onclick="window.open('{% static 'CV.pdf' %}', '_blank')">My CV</button>
         </div>
 
         <div class="motivation">
@@ -25,28 +25,17 @@
         </div>
 
         <div class="projects">
-            <button class="projects-button" onclick="window.open('projects', '_blank')">Projects</button>
+            <a href="{% url 'project_index' %}" class="projects-button-link">Projects</a>
         </div>
     </header>
 
     <main>
 
         <div class="about-me">
-        <p
-          style="font-family: Arial, sans-serif; font-weight: 600; color: white"
-        >
-          I'm Vasile Tanasa.
-        </p>
-        <p style="color: rgb(216, 212, 212)">
-          I'm on an exciting journey of self-discovery in the world of web
-          development.
-        </p>
-        <p style="color: rgb(216, 212, 212)"></p>
-        <p style="font-size: 25px; color: rgb(216, 212, 212)">
-          Every line of code, every project, is a new opportunity for me to
-          learn and grow.
-        </p>
-      </div>
+            <p>I'm Vasile Tanasa.</p>
+            <p>I'm on an exciting journey of self-discovery in the world of web development.</p>
+            <p>Every line of code, every project, is a new opportunity for me to learn and grow.</p>
+        </div>
 
         <div class="about-site">
             <div class="about-site-text">
@@ -55,14 +44,51 @@
             </div>
         </div>
 
+        <!-- Chatbot Button (Floating) -->
+        <button id="chatbot-toggle" class="chatbot-toggle-btn" onclick="toggleChatbot()" aria-label="Open Chat">
+            <div class="chatbot-btn-content">
+                <svg class="chatbot-icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M20 2H4C2.9 2 2 2.9 2 4V22L6 18H20C21.1 18 22 17.1 22 16V4C22 2.9 21.1 2 20 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M7 9H17M7 13H14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                </svg>
+                <span class="chatbot-text">Ask me</span>
+            </div>
+            <div class="chatbot-pulse-ring"></div>
+        </button>
+
         <!-- Chatbot Interface -->
-        <div id="chatbox" class="chatbox">
-            <div id="chat-messages" class="chat-messages"></div>
+        <div id="chatbox" class="chatbox" style="display: none;">
+            <div class="chatbox-header">
+                <span class="chatbox-title">💬 Chat Assistant</span>
+                <button class="chatbox-close" onclick="toggleChatbot()">×</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <div class="message bot" style="opacity: 0.9;">
+                    👋 Hello! I'm here to help you learn about this portfolio. Try asking about projects, skills, or CV!
+                </div>
+            </div>
             <input type="text" id="user-input" class="user-input" placeholder="Type a message...">
         </div>
     </main>
 
     <script>
+        function toggleChatbot() {
+            const chatbox = document.getElementById('chatbox');
+            const toggleBtn = document.getElementById('chatbot-toggle');
+            
+            if (chatbox.style.display === 'none' || chatbox.style.display === '') {
+                chatbox.style.display = 'block';
+                toggleBtn.style.display = 'none';
+                // Focus on input when opened
+                setTimeout(() => {
+                    document.getElementById('user-input').focus();
+                }, 100);
+            } else {
+                chatbox.style.display = 'none';
+                toggleBtn.style.display = 'flex';
+            }
+        }
+
         document.getElementById('user-input').addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 let userInput = e.target.value;
@@ -74,18 +100,34 @@
                     },
                     body: `message=${encodeURIComponent(userInput)}`,
                 })
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(data => {
+                            throw new Error(data.error || 'Server error');
+                        });
+                    }
+                    return response.json();
+                })
                 .then(data => {
                     if (data.error) {
-                        displayMessage(data.error, 'error');
-                    } else {
+                        displayMessage('❌ Error: ' + data.error, 'error');
+                    } else if (Array.isArray(data) && data.length > 0) {
+                        // Chatbot returns an array of messages
                         data.forEach(message => {
-                            displayMessage(message.text, 'bot');
+                            if (message.text) {
+                                displayMessage(message.text, 'bot');
+                            }
                         });
+                    } else if (data.text) {
+                        // Single message response
+                        displayMessage(data.text, 'bot');
+                    } else {
+                        displayMessage('🤖 I received your message, but got an unexpected response format.', 'error');
                     }
                 })
                 .catch(error => {
-                    displayMessage('An error occurred: ' + error.message, 'error');
+                    displayMessage('❌ Error: ' + error.message, 'error');
+                    console.error('Chatbot error:', error);
                 });
                 e.target.value = '';
             }

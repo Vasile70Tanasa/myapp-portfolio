@@ -13,22 +13,47 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
-import django_heroku
+# django_heroku removed - not needed for PythonAnywhere deployment
+
+# Load environment variables from .env file
+from dotenv import load_dotenv
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+# Detect if running on PythonAnywhere
+ON_PYTHONANYWHERE = os.environ.get('PYTHONANYWHERE_DOMAIN', '').endswith('.pythonanywhere.com')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-x(b^d1_90*3v&6sn&hd*lm07r3-1v=pmw^jza!$4n2m5#wgt*b"
+if ON_PYTHONANYWHERE:
+    # Production: get from environment variable
+    SECRET_KEY = os.environ.get('SECRET_KEY', 'CHANGE-THIS-IN-PRODUCTION-ENV-VARS')
+    DEBUG = False
+else:
+    # Development: use default (not secure, but OK for local)
+    SECRET_KEY = "django-insecure-x(b^d1_90*3v&6sn&hd*lm07r3-1v=pmw^jza!$4n2m5#wgt*b"
+    DEBUG = True
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+if ON_PYTHONANYWHERE:
+    ALLOWED_HOSTS = ['Vasile70Tanasa.eu.pythonanywhere.com', 'www.Vasile70Tanasa.eu.pythonanywhere.com']
+else:
+    ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
-ALLOWED_HOSTS = []
+# OpenAI API Key (optional - for chatbot)
+# Method 1: Set as environment variable (RECOMMENDED):
+#   Windows PowerShell: $env:OPENAI_API_KEY="sk-your-key-here"
+#   Linux/Mac: export OPENAI_API_KEY="sk-your-key-here"
+#
+# Method 2: Set directly here (ONLY for local development, NOT for production):
+#   Uncomment the line below and add your API key:
+# OPENAI_API_KEY = "sk-your-api-key-here"
+#
+# The code will check environment variable first, then settings.OPENAI_API_KEY
 
 
 # Application definition
@@ -42,7 +67,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "django_heroku",
+    # django_heroku removed - not needed for PythonAnywhere
 ]
 
 MIDDLEWARE = [
@@ -117,7 +142,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
-STATIC_URL = "static/"
+STATIC_URL = "/static/"
 
 
 # Default primary key field type
@@ -126,11 +151,12 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-# STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-# STATICFILES_DIRS = [BASE_DIR / 'personal_portfolio/static', ]
-STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'), )
+# STATICFILES_DIRS - Django will automatically find static files in app/static/ directories
+# No need to specify since we're using app-level static directories (pages/static, projects/static)
 
 MEDIA_ROOT = BASE_DIR / "uploads/"
 MEDIA_URL = "media/"
 
-django_heroku.settings(locals())
+# Static files storage - using default for development and production
+# For PythonAnywhere, you can use ManifestStaticFilesStorage in production if needed
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.StaticFilesStorage'

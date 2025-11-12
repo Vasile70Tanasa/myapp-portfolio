@@ -1,68 +1,269 @@
-body{
-  background-color: rgb(253, 247, 240);
+* {
+    box-sizing: border-box;
 }
 
-.title{
-  font-style: Arial;
-  text-align: center;
-  color: rgba(53, 34, 34, 0.858);
-  font-size: 40px;
-  opacity: 0;
-  transition: opacity 2s ease;
-  }
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background-attachment: fixed;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: #333;
+}
+
+.back-nav {
+    padding: 20px 40px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.back-button {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.back-button:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateX(-5px);
+    color: white;
+    text-decoration: none;
+}
+
+.title {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    text-align: center;
+    color: white;
+    font-size: 48px;
+    font-weight: 700;
+    margin: 40px 0;
+    opacity: 0;
+    transition: opacity 2s ease;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
 
 .fade-in {
     opacity: 1;
-  }
+}
 
 .project-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr;
-  column-gap: 20px;
-  row-gap: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 30px;
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
 }
 
 .project-preview {
-  vertical-align: bottom;
-  border-width: 1px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    animation: fadeInUp 0.6s ease;
+    animation-fill-mode: both;
+}
+
+.project-preview:nth-child(1) { animation-delay: 0.1s; }
+.project-preview:nth-child(2) { animation-delay: 0.2s; }
+.project-preview:nth-child(3) { animation-delay: 0.3s; }
+.project-preview:nth-child(4) { animation-delay: 0.4s; }
+.project-preview:nth-child(5) { animation-delay: 0.5s; }
+.project-preview:nth-child(6) { animation-delay: 0.6s; }
+
+.project-preview:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .project-image {
-
-}
-
-.project-info-grid {
-  display: grid;
-  /* grid-template-columns: 50px 1fr; */
-}
-
-.project-title {
-  margin-top: 8px;
-  font-size: 24px;
-  font-weight: 500;
-  line-height: 20px;
-  margin-bottom: 0;
-}
-
-.project-description{
-  font-size: 20px;
-  font-weight: 500;
-  line-height: 20px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    display: block;
 }
 
 .image-row {
-  height: 200px;
-  position: relative;
+    height: 200px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(0, 0, 0, 0.1);
 }
 
-button{
-  background-color: rgb(71, 56, 56);
-  color: white;
-  font-size: 15px;
-  border: none;
-  height: 36px;
-  width: 100px;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 8px;
+.image-row img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.project-image-placeholder {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 18px;
+}
+
+.project-preview:hover .image-row img {
+    transform: scale(1.1);
+}
+
+.project-info-grid {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    flex-grow: 1;
+}
+
+.project-title {
+    margin: 0;
+    font-size: 22px;
+    font-weight: 600;
+    color: white;
+    line-height: 1.3;
+}
+
+.project-description {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 0;
+    flex-grow: 1;
+}
+
+.project-link {
+    margin-top: auto;
+    padding: 0 20px 20px;
+}
+
+.project-link button {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    height: 40px;
+    width: 100%;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.project-link button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+}
+
+.project-link button:active {
+    transform: translateY(0);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 25px;
+    }
+}
+
+@media (max-width: 768px) {
+    .back-nav {
+        padding: 15px 20px;
+    }
+
+    .back-button {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+
+    .title {
+        font-size: 36px;
+        margin: 30px 0;
+    }
+
+    .project-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .project-title {
+        font-size: 20px;
+    }
+
+    .project-description {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .back-nav {
+        padding: 12px 15px;
+    }
+
+    .back-button {
+        font-size: 12px;
+        padding: 6px 12px;
+    }
+
+    .title {
+        font-size: 28px;
+        margin: 20px 0;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 10px;
+    }
+
+    .project-preview {
+        border-radius: 15px;
+    }
+
+    .project-info-grid {
+        padding: 15px;
+    }
+
+    .project-link {
+        padding: 0 15px 15px;
+    }
+
+    .image-row {
+        height: 180px;
+    }
 }
